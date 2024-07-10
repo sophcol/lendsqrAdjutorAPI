@@ -1,0 +1,2 @@
+# lendsqrAdjutorAPI
+Capital cash

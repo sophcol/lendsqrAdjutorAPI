@@ -1,0 +1,781 @@
+{
+	"info": {
+		"_postman_id": "7dca4914-fde1-4e76-9cc0-6c0483c2e070",
+		"name": "Lensqr Adjutor API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11937997"
+	},
+	"item": [
+		{
+			"name": "Lendsqr",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Positive test",
+							"item": [
+								{
+									"name": "login with valid details",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", ()=> pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 200\", ()=> pm.response.to.have.status(200));\r",
+													"if (pm.response.code === 200) {\r",
+													"     var ResponseBody = pm.response.json();\r",
+													"     var RequestBody = JSON.parse(pm.request.body.raw);\r",
+													"     var User = ResponseBody.user;\r",
+													"\r",
+													"     //test for the response key\r",
+													"    pm.test(\"token KEY PRESENT\", ()=> pm.expect(ResponseBody).to.have.property(\"token\"))\r",
+													"   pm.test(\"message KEY PRESENT\", ()=> pm.expect(ResponseBody).to.have.property(\"message\"))\r",
+													"    pm.test(\"user KEY PRESENT\", ()=> pm.expect(ResponseBody).to.have.property(\"user\"))\r",
+													"\r",
+													"    //test for the response values\r",
+													"    pm.test(\"email Validation Passed\", () => pm.expect(User.email).to.equal(RequestBody.email))\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"doe@mailinator.com\",\r\n    \"password\": \"Freddie123!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://lendsqr.com/api/login",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Negative test",
+							"item": [
+								{
+									"name": "login with unregistered email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", ()=> pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 422\", ()=> pm.response.to.have.status(422));\r",
+													"\r",
+													"if (pm.response.code === 422) {\r",
+													"     var ResponseBody = pm.response.json();     \r",
+													"     //test for the response key\r",
+													"      pm.test(\"message KEY PRESENT\", ()=> pm.expect(ResponseBody).to.have.property(\"message\"));\r",
+													"    //test for the response values\r",
+													"     pm.test(\"message Validation Passed\", ()=> pm.expect(ResponseBody.message).to.equal(\"Email/Password is incorrect\"));\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"fred@mailinator.com\",\r\n    \"password\": \"Freddie123!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://lendsqr.com/api/login",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login with wrong password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", ()=> pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 422\", ()=> pm.response.to.have.status(422));\r",
+													"\r",
+													"if (pm.response.code === 422) {\r",
+													"     var ResponseBody = pm.response.json();     \r",
+													"     //test for the response key\r",
+													"      pm.test(\"message KEY PRESENT\", ()=> pm.expect(ResponseBody).to.have.property(\"message\"));\r",
+													"    //test for the response values\r",
+													"     pm.test(\"message Validation Passed\", ()=> pm.expect(ResponseBody.message).to.equal(\"Email/Password is incorrect\"));\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"doe@mailinator.com\",\r\n    \"password\": \"Milly123!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://lendsqr.com/api/login",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login omitting email field",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", () => pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 422\", () => pm.response.to.have.status(422));\r",
+													"\r",
+													"if (pm.response.code === 422) {\r",
+													"    var ResponseBody = pm.response.json();\r",
+													"\r",
+													"    //test for the response key\r",
+													"    pm.test(\"errors KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(errors))\r",
+													"    //test for the response values\r",
+													"    pm.test(\"email KEY PRESENT\", () => pm.expect(pm.response.json().errors).to.deep.include({\r",
+													"        \"value\": \"\",\r",
+													"        \"msg\": \"email field cannot be left empty\",\r",
+													"        \"param\": \"email\",\r",
+													"        \"location\": \"body\"\r",
+													"    }))\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\": \"Milly123!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://lendsqr.com/api/login",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login omitting password field",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", () => pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 422\", () => pm.response.to.have.status(422));\r",
+													"\r",
+													"if (pm.response.code === 422) {\r",
+													"    var ResponseBody = pm.response.json();\r",
+													"\r",
+													"    //test for the response key\r",
+													"    pm.test(\"errors KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(errors))\r",
+													"    //test for the response values\r",
+													"    pm.test(\"email KEY PRESENT\", () => pm.expect(pm.response.json().errors).to.deep.include({\r",
+													"        \"value\": \"\",\r",
+													"        \"msg\": \"password field cannot be left empty\",\r",
+													"        \"param\": \"password\",\r",
+													"        \"location\": \"body\"\r",
+													"    }))\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"doe@mailinator.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://lendsqr.com/api/login",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Retrieve Api key",
+					"item": [
+						{
+							"name": "pretest",
+							"item": [
+								{
+									"name": "token of authorized user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var ResponseBody = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"validusertoken\", ResponseBody.token);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"doe@mailinator.com\",\r\n    \"password\": \"Freddie123!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://lendsqr.com/api/login",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "token of unauthorized user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var ResponseBody = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"wrongusertoken\", ResponseBody.token);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"mike@mailinator.com\",\r\n    \"password\": \"Mikey123!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://lendsqr.com/api/login",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Positive test",
+							"item": [
+								{
+									"name": "rettrieve api key with authentication",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", () => pm.expect(pm.response.responseTime).to.be.below(1000));",
+													"",
+													"pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+													"if (pm.response.code === 200) {",
+													"    var ResponseBody = pm.response.json();",
+													"    var RequestBody = JSON.parse(pm.request.body.raw);",
+													"    var User = ResponseBody.user;",
+													"",
+													"    //test for the response key",
+													"    pm.test(\"apiKey KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"token\"))",
+													"    pm.test(\"createdAt KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"message\"))",
+													"}",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{validusertoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://lendsqr.com/api/apiKey",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"apiKey"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Negative test",
+							"item": [
+								{
+									"name": "retrieve api key without authentication",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", () => pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+													"\r",
+													"if (pm.response.code === 401) {\r",
+													"    var ResponseBody = pm.response.json();\r",
+													"\r",
+													"    //test for the response key\r",
+													"    pm.test(\"status KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"status\"))\r",
+													"    pm.test(\"error KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"error\"))\r",
+													"    pm.test(\"message KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"message\"))\r",
+													"    //test for the response values\r",
+													"    pm.test(\"message Validation Passed\", () => {\r",
+													"        pm.expect(ResponseBody.message).to.equal(\"You are not logged in! Please login to continue\")\r",
+													"    })\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://lendsqr.com/api/apiKey",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"apiKey"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "retrieve api key with unauthorized user token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", () => pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+													"if (pm.response.code === 401) {\r",
+													"    var ResponseBody = pm.response.json();\r",
+													"\r",
+													"    //test for the response key\r",
+													"    pm.test(\"status KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"status\"))\r",
+													"    pm.test(\"error KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"error\"))\r",
+													"    pm.test(\"message KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"message\"))\r",
+													"    //test for the response values\r",
+													"    pm.test(\"message Validation Passed\", () => {\r",
+													"        pm.expect(ResponseBody.message).to.equal(\"Invalid or expired token\")\r",
+													"    })\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{wrongusertoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://lendsqr.com/api/apiKey",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"apiKey"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "retrieve api key with invalid token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response time is less than 1000ms\", () => pm.expect(pm.response.responseTime).to.be.below(1000));\r",
+													"\r",
+													"pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+													"if (pm.response.code === 401) {\r",
+													"    var ResponseBody = pm.response.json();\r",
+													"\r",
+													"    //test for the response key\r",
+													"    pm.test(\"status KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"status\"))\r",
+													"    pm.test(\"error KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"error\"))\r",
+													"    pm.test(\"message KEY PRESENT\", () => pm.expect(ResponseBody).to.have.property(\"message\"))\r",
+													"    //test for the response values\r",
+													"    pm.test(\"message Validation Passed\", () => {\r",
+													"        pm.expect(ResponseBody.message).to.equal(\"Invalid or expired token\")\r",
+													"    })\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{randomToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://lendsqr.com/api/apiKey",
+											"protocol": "https",
+											"host": [
+												"lendsqr",
+												"com"
+											],
+											"path": [
+												"api",
+												"apiKey"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//Function for Random Alphabeth Characters",
+							"function generateRandAlph() {  ",
+							"var text = \"\";",
+							"var possible = \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvnxyz\";",
+							" for (var i = 0; i < 5; i++)",
+							"text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"return text;",
+							"}",
+							"var AuthRandomAlpha=generateRandAlph();",
+							"postman.setEnvironmentVariable(\"randomAlpha\", AuthRandomAlpha);",
+							"",
+							"",
+							"//Function for Random Special Characters",
+							"function generate10speXter() {  ",
+							"var text = \"\";",
+							"var possible = \"@#$%^&()_)(&^%$%^&()(&^\";",
+							" for (var i = 0; i < 10; i++)",
+							"text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"return text;",
+							"}",
+							"var AuthSC =generate10speXter();",
+							"postman.setEnvironmentVariable(\"randomSC\", AuthSC);",
+							"",
+							"",
+							"//Function for Random numbers",
+							"function generaterandnum() {  ",
+							"var text = \"\";",
+							"var possible = \"012345678910\";",
+							" for (var i = 0; i < 5; i++)",
+							"text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"return text;",
+							"}",
+							"var AuthRandnum =generaterandnum();",
+							"postman.setEnvironmentVariable(\"randomnum\", AuthRandnum);",
+							"",
+							"//Function for Random alphanumeric ",
+							"function generateRandalphanum() {  ",
+							"var text = \"\";",
+							"var possible = \"12345hfnskfmyoppqbayrmzxwetpl6789430234\";",
+							" for (var i = 0; i < 10; i++)",
+							"text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"return text;",
+							"}",
+							"var AuthRandalphanum =generateRandalphanum();",
+							"postman.setEnvironmentVariable(\"randomalphanum\", AuthRandalphanum);",
+							"",
+							"",
+							"",
+							"//Function for greater character Lenght",
+							"function generategclfirstname() {  ",
+							"var text = \"\";",
+							"var possible = \"qwertyuioplkjhgfdsazxcvbnm\";",
+							" for (var i = 0; i < 250; i++)",
+							"text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"return text;",
+							"}",
+							"var AuthRandnum =generategclfirstname();",
+							"postman.setEnvironmentVariable(\"randomgcl\", AuthRandnum);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

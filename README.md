@@ -1,5 +1,8 @@
 # lendsqrAdjutorAPI
+Task 1,3 & 4 
+https://docs.google.com/document/d/15fH2I0viuSxs51047R1rgg-W64JEmEiKD2vwIUQUKlU/edit 
 
+Task 2
 Summary of Test Results for Lendsqr Adjutor APIs
 
 Overview
@@ -68,7 +71,7 @@ The Lendsqr Adjutor APIs performed well in terms of response times and reliabili
 #Automated Test Script 
 Testing tool - Postman
 
-Steps to take
+Steps 
 
 1. Download the collection and the environment attached to this project.
 2. Setting Up Postman
